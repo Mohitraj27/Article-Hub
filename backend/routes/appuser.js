@@ -4,7 +4,10 @@ const router = express.Router();
 
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
-router.post('/addNewAppUser', (req, res) => {
+
+var auth = require('../services/authentication');
+
+router.post('/addNewAppUser', auth.authenticateToken, (req, res) => {
     let user = req.body;
     query = "select email,password,status from appuser where email=?";
 
@@ -61,5 +64,66 @@ router.post('/login', (req, res) => {
             return res.status(500).json(err);
         }
     })
+})
+
+// using this route all users can be retrived except admin whose isDeletable = true
+router.get('/getAllAppuser',auth.authenticateToken,(req,res)=>{
+    const tokenPayload = res.locals;
+    var query;
+    if(tokenPayload.isDeletable === 'false'){
+        query="select id,name,email,status from appuser where isDeletable='true'";
+    }else{
+        query="select id,name,email,status from appuser where isDeletable='true' and email !=?"
+    }
+    connection.query(query,[tokenPayload.email],(err,results)=>{
+        if(!err){
+            return res.status(200).json(results);
+        }
+        else{
+            return res.status(500).json(err);
+        }
+    })
+})
+
+// this route will update new user  status to true or false
+router.post('/updateUserStatus',auth.authenticateToken,(req,res)=>{
+    let user=req.body;
+    var query= "update appuser set status=? where id=? and isDeletable='true'";
+
+    connection.query(query,[user.status,user.id],(err,results)=>{
+        if(!err){
+            if(results.affectedRows ==0){
+                return res.status(404).json({message:"User id doesn't exist"})
+            }
+            return res.status(200).json({message:"User Updated Successfully"})
+        }
+        else{
+            return res.status(500).json(err);
+        }
+    })
+})
+
+// Update the User name and email
+router.post('/updateUser',auth.authenticateToken,(req,res)=>{
+    let user=req.body;
+    var query= "update appuser set name=?,email=? where id=?";
+
+    connection.query(query,[user.name,user.email,user.id],(err,results)=>{
+        if(!err){
+            if(results.affectedRows ==0){
+                return res.status(404).json({message:"User id doesn't exist"})
+            }
+            return res.status(200).json({message:"User Updated Successfully"})
+        }
+        else{
+            return res.status(500).json(err);
+        }
+    })
+})
+
+// this route checks whther token is stored in localstorage or it has been expired 
+// based on the response it will allow user to route to the admin user
+router.get('/checkToken',auth.authenticateToken,(req,res)=>{
+    return res.status(200).json({message:"true"});
 })
 module.exports = router;
