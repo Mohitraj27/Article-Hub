@@ -32,7 +32,7 @@ router.get('/getAllArticle',auth.authenticateToken,(req,res)=>{
 })
 
 
-router.get('/getAllPublishedArticle',auth.authenticateToken,(req,res)=>{
+router.get('/getAllPublishedArticle',(req,res)=>{
     var query = "select a.id,a.title,a.content,a.status,a.publication_date,c.id as categoryId ,c.name as categoryName from article as a inner join category as c where a.categoryId=c.id and a.status='published'";
     
     connection.query(query,(err,results)=>{
