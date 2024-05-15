@@ -7,6 +7,10 @@ import { HelpDetailsComponent } from './help-details/help-details.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
 import { MaterialModule } from '../shared/material-module';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { UsersComponent } from './dialog/users/users.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -14,12 +18,17 @@ import { MaterialModule } from '../shared/material-module';
     DashboardComponent,
     HelpDetailsComponent,
     LayoutComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    ManageUsersComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule
   ]
 })
 export class AdminModule { }

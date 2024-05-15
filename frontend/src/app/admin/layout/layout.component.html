@@ -40,6 +40,12 @@
             <span>Dashboard</span>
         </button>
 
+    
+        <button mat-button class="menu-button" [color]="themeService.getTheme()" routerLinkActive="active"
+            routerLink="/articleHub/users">
+            <mat-icon>group</mat-icon>
+            <span>User</span>
+        </button>
         <mat-divider class="custom-divider"></mat-divider>
         <button mat-button class="menu-button" [color]="themeService.getTheme()" routerLinkActive="active"
             routerLink="/articleHub/help">

@@ -17,4 +17,34 @@ export class AppUserService {
        }
     )
   }
+
+  addNewAppUser(data:any){
+    return this.httpClient.post(this.url+
+       "/appuser/addNewAppuser",data,{
+        headers:new HttpHeaders().set('Content-Type',"application/json")
+       }
+    )
+  }
+
+
+  getAllAppuser(){
+    return this.httpClient.get(this.url+"/appuser/getAllAppuser");
+    }
+
+    updateUser(data:any){
+      return this.httpClient.post(this.url+
+         "/appuser/updateUser",data,{
+          headers:new HttpHeaders().set('Content-Type',"application/json")
+         }
+      )
+    }
+
+    updateUserStatus(data:any){
+      console.log('Updating user status:', data);
+      return this.httpClient.post(this.url+
+         "/appuser/updateUserStatus",data,{
+          headers:new HttpHeaders().set('Content-Type',"application/json")
+         }
+      )
+    }
 }
