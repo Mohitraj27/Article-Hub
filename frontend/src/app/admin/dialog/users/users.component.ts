@@ -33,14 +33,16 @@ export class UsersComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.dialogAction = this.dialogData.action;
+
     this.usersForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
       name: [null, [Validators.required]],
       password: [null, [Validators.required]]
     });
 
-    if (this.dialogAction.action === 'Edit') {
-      this.dialogAction = "Edit";
+    if (this.dialogAction === 'Edit') {
+      // this.dialogAction = "Edit";
       this.action = "Update";
       this.usersForm.patchValue(this.dialogData.data);
       this.usersForm.controls['password'].setValue('password');

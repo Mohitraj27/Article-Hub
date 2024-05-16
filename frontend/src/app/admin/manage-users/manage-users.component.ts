@@ -77,7 +77,7 @@ export class ManageUsersComponent implements OnInit{
       dialogRef.close();
     });
     const res= dialogRef.componentInstance.onAddUser.subscribe(
-      (response)=>{
+      (res)=>{
         this.tableData();
       }
     )
@@ -95,7 +95,7 @@ export class ManageUsersComponent implements OnInit{
       dialogRef.close();
     });
     const res= dialogRef.componentInstance.onEditUser.subscribe(
-      (response)=>{
+      (res)=>{
         this.tableData();
       }
     )
