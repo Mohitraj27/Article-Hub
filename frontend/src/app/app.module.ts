@@ -13,6 +13,8 @@ import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, SPINNER } from 'ngx
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { tokenInterceptor } from './services/token.interceptor';
+import { QuillModule } from 'ngx-quill';
+import { SharedModule } from './shared/shared.module';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -33,6 +35,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AppComponent,
     HomeComponent,
     LoginComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     FlexLayoutModule,
     MaterialModule,
     HttpClientModule,
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    QuillModule.forRoot(),
+    SharedModule
   ],
   // multi is set to true cause multiple req is set to hit at the same time for passing the token through Interceptor
   providers: [HttpClientModule, { provide: HTTP_INTERCEPTORS, useClass: tokenInterceptor, multi: true }],

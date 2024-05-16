@@ -6,6 +6,7 @@ import { RouterGuardService } from '../services/router-guard.service';
 import { HelpDetailsComponent } from './help-details/help-details.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageCategoryComponent } from './manage-category/manage-category.component';
+import { ManageArticleComponent } from './manage-article/manage-article.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
       {
         path: 'category',
         component: ManageCategoryComponent,
+        canActivate: [RouterGuardService]
+      },
+      {
+        path: 'article',
+        component: ManageArticleComponent,
         canActivate: [RouterGuardService]
       },
       {
